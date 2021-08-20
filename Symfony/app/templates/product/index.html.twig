@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="../js/autocomplete.js"></script>
+{% endblock %}
+{% block search %}
+    {{ parent() }}
+    {{ form_start(search) }}
+    {{ form_row(search) }}
+    {{ form_end(search) }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-7">Product List</h1>
+            <p><a class="btn btn-primary btn-md" href="{{ path('product.create') }}" role="button">Create product »</a></p>
+        </div>
+    </div>
+    <div class="row">
+                {% for product in pagination %}
+                <div class="col-md-3">
+                    <div class="card mb-3 box-shadow">
+                        <img class="card-img-top" src="../uploads{{ asset(product.images.count ? product.images.first.path : '') }}" alt="{{ product.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.id }} | {{ product.title }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{ path('product.view', {'id': product.id}) }}">View</a></button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{ path('product.update', {'id': product.id}) }}">Edit</a></button>
+                                    <button type="button" class="btn btn-sm btn-danger"><a style="color: #fff;font-weight: bold;" href="{{ path('product.delete', {'id': product.id}) }}">Delete</a></button>
+                                </div>
+                                <small class="text-muted">Images: {{ product.images.count }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="panel panel-warning">
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">Title: {{ entity.title }}</li>
+                    <li class="list-group-item">Price: {{ entity.price|format_currency('USD') }}</li>
+                    <li class="list-group-item">Stock: {{ entity.stock }}</li>
+                    <li class="list-group-item">Description: {{ entity.description }}</li>
+                    <li class="list-group-item">Tags:
+                            {% for tag in  entity.tags %}
+                                <span class="badge badge-warning"><a href="{{ path('tag.view', {'id' : tag.id}) }}">{{ tag.name }}</a></span>
+                            {% endfor %}
+                    </li>
+                    <li class="list-group-item">Images:
+                        <div class="row">
+                            {% for image in  entity.images %}
+                                <div class="col-md-4">
+                                    <div class="card mb-4 box-shadow">
+                                        <img class="card-img-top"  alt="{{ image.name }}" style="height: 225px; width: 100%; display: block;" src="../uploads{{ asset(image.path) }}" >
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

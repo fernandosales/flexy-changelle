@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="panel panel-warning">
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">Name: {{ entity.name }}</li>
+                    <li class="list-group-item">Qtd Products: {{ entity.products.count }}</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

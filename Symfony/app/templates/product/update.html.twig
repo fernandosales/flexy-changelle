@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#product_tags').select2();
+        });
+    </script>
+    <script>
+        {% include 'product/image_colletion.js.twig' %}
+    </script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>
+                {% if  form.vars.value.id   %}
+                    Edit Product #{{ form.vars.value.id }} - {{ form.vars.value.title }}
+                {% else %}
+                    Create Product
+                {% endif %}
+            </h2>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 order-md-1">
+                    <div class="">
+                        {{ form_start(form) }}
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.price) }}
+                        {{ form_row(form.stock) }}
+                        {{ form_row(form.description) }}
+                        {{ form_row(form.tags) }}
+                        <div class="col-sm-8 col-sm-offset-2" id="exp_list" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+                            {% for image in form.images %}
+                                <div class="panel panel-warning">
+                                    {% if image.vars.value.path %}
+                                        <img class="card-img-top" style="height: 225px; width: 100%; display: block;" src="/uploads/{{ image.vars.value.path }}">
+                                    {% endif %}
+                                    <div class="panel-body">
+                                        {{ form_row(image.name) }}
+                                        {{ form_row(image.title) }}
+                                        {{ form_row(image.file) }}
+                                        {{ form_errors(image) }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {{ form_errors(form) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

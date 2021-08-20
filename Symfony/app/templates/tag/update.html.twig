@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#product_tags').select2();
+        });
+    </script>
+    <script>
+        {% include 'product/image_colletion.js.twig' %}
+    </script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>
+                {% if  form.vars.value.id   %}
+                    Edit Tag #{{ form.vars.value.id }} - {{ form.vars.value.name }}
+                {% else %}
+                    Create Tag
+                {% endif %}
+            </h2>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 order-md-1">
+                    <div class="">
+                        {{ form_start(form) }}
+                        {{ form_row(form.name) }}
+                        {{ form_errors(form) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
