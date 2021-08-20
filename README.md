@@ -1,1 +1,3 @@
-# felexy-changelle
+# flexy-changelle
+
+init git
